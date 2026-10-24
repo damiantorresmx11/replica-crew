@@ -85,6 +85,22 @@ class Score(unittest.TestCase):
         self.assertEqual(len(r["problems"]), 2)
         self.assertEqual(r["feature_score"], 0.0)
 
+    def test_unquoted_commas_in_notes_fold_into_notes(self):
+        # a notes field written with commas and no quotes splits into extra
+        # CSV fields; load() must not crash and must keep the whole note.
+        text = ("feature,area,priority,original,clone,notes\n"
+                "Checkout,cart,must,yes,partial,demo stub, no real payment, really\n")
+        p = write(self.tmp.name, "commas.csv", text)
+        rows = parity.load(p)
+        self.assertEqual(rows[0]["notes"], "demo stub, no real payment, really")
+        parity.score(rows)  # does not raise
+
+    def test_short_row_missing_trailing_columns_is_ok(self):
+        text = ("feature,area,priority,original,clone,notes\n"
+                "X,tools,must,yes,yes\n")
+        rows = parity.load(write(self.tmp.name, "short.csv", text))
+        self.assertEqual(rows[0]["notes"], "")
+
     def test_missing_column_is_an_error(self):
         p = write(self.tmp.name, "nocol.csv", "feature,area\nx,y\n")
         with redirect_stderr(io.StringIO()):

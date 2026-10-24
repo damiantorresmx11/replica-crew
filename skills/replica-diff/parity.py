@@ -44,7 +44,10 @@ class MatrixError(Exception):
 
 def load(path):
     with open(path, newline="", encoding="utf-8-sig") as fh:
-        reader = csv.DictReader(fh)
+        # notes is the last column and people write commas in it without quoting,
+        # which splits into extra fields; collect those under a known key and
+        # fold them back into notes instead of crashing on a list value.
+        reader = csv.DictReader(fh, restkey="_overflow")
         if reader.fieldnames is None:
             raise MatrixError("%s is empty" % path)
         fields = [f.strip().lower() for f in reader.fieldnames]
@@ -55,7 +58,11 @@ def load(path):
                                   % (path, need))
         rows = []
         for i, raw in enumerate(reader, start=2):
+            overflow = raw.pop("_overflow", None)
             row = {(k or "").strip().lower(): (v or "").strip() for k, v in raw.items()}
+            if overflow:
+                extra = ",".join(x for x in overflow if x).strip()
+                row["notes"] = (", ".join(p for p in (row.get("notes", ""), extra) if p))
             if not row.get("feature"):
                 continue
             row["line"] = i
