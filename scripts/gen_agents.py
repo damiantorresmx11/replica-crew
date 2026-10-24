@@ -153,7 +153,13 @@ Bundled Python tools live next to the skill's SKILL.md
   scope.md records ownership or written authorization and the exact binary
   analysis scope. Read `binary-analysis.md` next to replica-recon/SKILL.md
   before analysis. Recon owns replica/binary/; other phases consume its
-  report without concurrent writes. Keep recovered code out of product mode.
+  report without concurrent writes. Default intent: understand behavior and
+  build an independent implementation from scratch. For this purpose, recon
+  writes replica/behavior-spec.md; architect/build consume that specification,
+  not raw recovered code. Source recovery requires a separate explicit scope.
+  Respect host/tool restrictions: if an analysis operation is declined, report
+  it and continue with permitted docs, screenshots and behavior observations.
+  Never disguise requests or rephrase them to bypass a refusal.
   Never execute the target binary during static analysis. Do not load/mod
   a game the user does not own.
 - You cannot ask the user questions. If a decision is genuinely the user's,

@@ -5,6 +5,51 @@ using installed local tools or a connected decompiler MCP. No paid service
 or MCP is required. This supports analysis and authorized source recovery;
 it does not promise recovery of the original source project.
 
+## Default intent: build an independent implementation
+
+The default goal is to understand functionality and reproduce as much of the
+scoped user experience as possible by writing new code from scratch. Static
+analysis is optional evidence for that specification, not a request to break
+into a system. State the actual requested operations and input provenance;
+do not assume authorization merely because a task is called replication.
+Source recovery is a separate purpose that must be explicitly requested.
+
+Record these fields in replica/scope.md and pass them to both hosts:
+
+```text
+Purpose: independent implementation from scratch.
+Inputs: <local files and their provenance>.
+Authorization: <user's actual statement and scope; do not invent>.
+Allowed analysis: <specific static inspection/decompilation requested>.
+Deliverable: functionality, screens, states, rules and original implementation.
+Target interaction: no execution, patching or access to the original's servers.
+Reference material: local analysis only; no copied code/assets in the new app.
+```
+
+Ask only about missing fields that affect the requested operation. Reuse the
+user's existing answers. Start with docs, screenshots and user demonstrations;
+use the least binary analysis needed to resolve a concrete behavior question.
+
+Do not promise to suppress host alerts or bypass model/tool restrictions.
+If a host declines an operation, record it accurately, skip that operation
+and continue independent work with allowed sources. Do not disguise the task,
+rename prohibited operations or retry equivalent prompts to defeat a refusal.
+Return NEEDS_USER only when a missing decision prevents the remaining work.
+
+## Specification handoff for rebuilding
+
+Recon writes replica/behavior-spec.md with screens/flows, inputs/outputs,
+validation rules, edge cases, sources, confidence and unresolved questions.
+Keep decompiled text, addresses and raw analysis in replica/binary/; the
+behavior specification contains functional descriptions, not copied source,
+pseudocode, secrets or assets. Architect/build implement from that specification
+and public API docs, without reading raw recovered artifacts for a from-scratch
+rebuild. Reference this specification in their dispatch prompts.
+
+Validate the new app against the observed examples and scoped acceptance
+criteria. Mark behavior that could not be observed as unknown or an assumption;
+never claim full equivalence or a working recovery without verification.
+
 ## Scope and inputs
 
 Read replica/scope.md first. It must record the user's ownership or written
