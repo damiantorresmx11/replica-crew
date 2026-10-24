@@ -136,7 +136,7 @@ Report each step's result in one or two lines. Begin with STEP 1.
 | mode | for | engine |
 | --- | --- | --- |
 | `product` (default) | your **own** product with the features of someone else's app | 11 Replica agents, clean room |
-| `faithful` | a site you **own or are authorized** to copy: migrate your site, restore a lost codebase, client work under contract | `clone-team`, `clone-website`, `web-clone`, `stitch-extract-static-html` |
+| `faithful` | a site you **own or are authorized** to copy: migrate your site, restore a lost codebase, client work under contract | `clone-team`, `clone-website`, `web-clone`, `stitch-extract-static-html`; `faithful-capture` for a **verbatim** copy that keeps the real animations |
 | `study` | learn how a premium site is built, kept local, assets substituted | `clone-study` |
 
 ## Product mode: how it runs

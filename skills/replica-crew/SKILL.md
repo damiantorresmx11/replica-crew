@@ -63,9 +63,12 @@ Faithful-clone skills bundled in this repo (pick one, do not stack them):
 | `clone-website` | one to a few pages fast into a Next.js app, Framer and animated sites |
 | `web-clone` | WebGL, Canvas, Three.js heavy sites; decision tree in Chinese |
 | `design-mirror` | apply a site's look to the user's **existing** app (needs a Bright Data key) |
+| `faithful-capture` | a **verbatim local copy** of a page the user owns: keeps the site's own CSS, assets and scripts so the **real animations** replay. Gated on recorded authorization; local only, never published. |
 
 `stitch-extract-static-html` also fits `faithful` when only static HTML of a
-page is needed.
+page is needed. Use `faithful-capture` when the user wants the **exact**
+animations and code kept (not rebuilt), on a site they own or are authorized
+to copy; it records authorization in `scope.md` and produces a local file only.
 
 Helper skills the phase agents may call (all bundled, all optional):
 

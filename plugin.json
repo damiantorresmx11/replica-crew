@@ -1,6 +1,6 @@
 {
   "name": "replica-crew",
-  "version": "2.1.1",
+  "version": "2.2.0",
   "description": "Clone web pages, web apps, desktop apps, Android apps and games (plus original game mashups) with Claude Code and Codex. Scans your machine read-only to say what it can build, then runs 11 phase subagents. 15 bundled clone/design/UI skills. Clean-room. MIT.",
   "author": {
     "name": "Damian Torres (DMLABS)",
@@ -29,8 +29,11 @@
     "replica",
     "reverse-engineering",
     "saas-clone",
+    "singlefile",
+    "site-mirror",
     "subagents",
     "ui-to-code",
+    "verbatim-clone",
     "website-clone",
     "website-cloner"
   ],

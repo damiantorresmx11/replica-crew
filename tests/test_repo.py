@@ -40,11 +40,15 @@ class Repo(unittest.TestCase):
         self.assertEqual(len(names), len(set(names)))
 
     def test_bundled_skills_keep_license_and_source(self):
+        # A bundled (third-party) skill is marked by UPSTREAM.md; it must also
+        # ship LICENSE.upstream. First-party skills (replica-*, faithful-*) have
+        # neither and are exempt.
         for d in os.listdir(ROOT):
-            if d.startswith("replica-") or not os.path.isdir(os.path.join(ROOT, d)):
+            if not os.path.isdir(os.path.join(ROOT, d)):
                 continue
-            for f in ("LICENSE.upstream", "UPSTREAM.md"):
-                self.assertTrue(os.path.isfile(os.path.join(ROOT, d, f)), "%s/%s" % (d, f))
+            if os.path.isfile(os.path.join(ROOT, d, "UPSTREAM.md")):
+                self.assertTrue(os.path.isfile(os.path.join(ROOT, d, "LICENSE.upstream")),
+                                "%s/LICENSE.upstream" % d)
 
     def test_skill_frontmatter(self):
         for s in SKILLS + ["replica-crew"]:

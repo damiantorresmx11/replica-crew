@@ -29,3 +29,4 @@ Install: `/plugin marketplace add damiantorresmx11/replica-crew` then `/plugin i
 - [Targets](https://github.com/damiantorresmx11/replica-crew/blob/main/docs/TARGETS.md): web, desktop, android, game, mashup (game-mechanic blends) and how each flows through the pipeline
 - [Install + scan prompt](https://github.com/damiantorresmx11/replica-crew/blob/main/docs/INSTALL_PROMPT.md): paste-in English prompt that installs the toolkit and scans the machine read-only
 - [replica-capabilities](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-capabilities/SKILL.md): read-only machine scan (doctor.py) of toolchains and buildable targets
+- [faithful-capture](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/faithful-capture/SKILL.md): verbatim local copy of a page you own/are authorized to copy, keeping its real CSS/assets/scripts so the original animations replay (SingleFile; authorization-gated)
