@@ -1,0 +1,26 @@
+# Replica Crew
+
+> Claude Code plugin with 11 specialist subagents and an orchestrator that clone an app's features end to end (recon, architect, design, entrepreneur, build, backend, test, diff, brand, launch, deploy). Clean-room: features and flows, never code, brand or content. MIT. Built on the Replica skill pack by Jake Schincariol.
+
+Install: `/plugin marketplace add damiantorresmx11/replica-crew` then `/plugin install replica-crew@replica-crew`. Run: `/replica-crew <app url>`.
+
+## Docs
+
+- [README](https://github.com/damiantorresmx11/replica-crew/blob/main/README.md): overview, waves, install
+- [AGENTS.md](https://github.com/damiantorresmx11/replica-crew/blob/main/AGENTS.md): use with Codex, Cursor, Gemini CLI
+- [Orchestrator](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-crew/SKILL.md): waves, parallel phases, quality loop
+- [Ecosystem](https://github.com/damiantorresmx11/replica-crew/blob/main/docs/ECOSYSTEM.md): 30 open-source AI app-cloning tools by phase
+
+## Skills
+
+- [replica-recon](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-recon/SKILL.md): screens, flows, data model, feature matrix
+- [replica-architect](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-architect/SKILL.md): stack, SQL schema, API
+- [replica-design](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-design/SKILL.md): design tokens, WCAG contrast
+- [replica-entrepreneur](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-entrepreneur/SKILL.md): review mining, fix plan, positioning
+- [replica-build](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-build/SKILL.md): screen-by-screen rebuild
+- [replica-backend](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-backend/SKILL.md): auth, DB, Stripe, email
+- [replica-test](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-test/SKILL.md): Playwright, bug log
+- [replica-diff](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-diff/SKILL.md): parity score, layout diff
+- [replica-brand](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-brand/SKILL.md): rename, palette, leftover sweep
+- [replica-launch](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-launch/SKILL.md): landing, pricing, store listing
+- [replica-deploy](https://github.com/damiantorresmx11/replica-crew/blob/main/replica-deploy/SKILL.md): preflight, DNS, production

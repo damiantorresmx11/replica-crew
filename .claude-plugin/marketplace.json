@@ -1,0 +1,18 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "replica-crew",
+  "description": "Replica Crew: 11 subagents that clone an app's features end to end",
+  "owner": {
+    "name": "Damian Torres (DMLABS)",
+    "url": "https://dmlabs.mx"
+  },
+  "plugins": [
+    {
+      "name": "replica-crew",
+      "description": "Eleven Replica skills plus eleven specialist subagents and a /replica-crew orchestrator that runs them in parallel waves.",
+      "source": "./",
+      "category": "productivity",
+      "homepage": "https://github.com/damiantorresmx11/replica-crew"
+    }
+  ]
+}
