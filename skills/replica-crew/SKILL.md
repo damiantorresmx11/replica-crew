@@ -118,8 +118,12 @@ SKILL.md. The binary workflow is independent of build-target readiness:
 missing Flutter or Node must not block static analysis with an available
 decompiler. Do not hand binary-only faithful recovery to website skills.
 For analysis-only work, stop after recon returns `replica/binary/report.md`.
-For authorized recovery, pass that report to architect/build; product mode
-continues using only functional observations, without recovered code.
+Default to an independent implementation written from scratch, not source
+recovery. Recon produces `replica/behavior-spec.md` using the shared binary
+playbook; pass that functional specification to architect/build, keeping raw
+recovered code separate. Source recovery must be explicitly scoped. If a host
+restricts an analysis operation, report the limitation and continue with
+permitted sources; do not retry prompts to bypass the restriction.
 
 ## Wave 1: recon
 

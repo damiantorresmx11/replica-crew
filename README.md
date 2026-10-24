@@ -33,6 +33,10 @@ Java bytecode and native PE/ELF/Mach-O binaries through `replica-recon`.
 Use an installed decompiler (JADX, ILSpy, CFR, Ghidra) or a connected MCP.
 The agents inventory inputs, record hashes, run the appropriate tool and
 write `replica/binary/report.md` with evidence and recovery limitations.
+The default goal is to understand behavior and build an independent app from
+scratch. Recon hands a functional `replica/behavior-spec.md` to the builders;
+raw recovered code is kept separate. If analysis is restricted, agents continue
+with permitted documentation, screenshots and behavior observations.
 Record ownership/authorization and analysis scope in `replica/scope.md`.
 Recovered code stays out of product-mode clones.
 
