@@ -1,19 +1,22 @@
-"""Generate the 11 replica-crew subagents. Run: python scripts/gen_agents.py agents"""
+"""Generate the 11 Replica Crew subagents for Claude Code (agents/*.md) and Codex (codex/agents/*.toml).
+
+Run from the repo root: python scripts/gen_agents.py
+"""
 import os
 import sys
 
 # Optional ecosystem tools per phase (see docs/ECOSYSTEM.md). Used only if already installed.
 POWER = {
-    "recon": "Chrome DevTools MCP or Playwright MCP (read public pages at human speed), Firecrawl MCP map endpoint for a public sitemap only. Binary tools (REA, GhidraMCP, jadx/apktool MCP, frida-mcp) ONLY when scope.md says the user owns the software or has written authorization, e.g. a legacy app whose source was lost.",
+    "recon": "Bundled skills: video-to-ui for public walkthrough videos, stitch-extract-design-md for a DESIGN.md of public pages. Chrome DevTools MCP or Playwright MCP (read public pages at human speed), Firecrawl MCP map endpoint for a public sitemap only. Binary tools (REA, GhidraMCP, jadx/apktool MCP, frida-mcp) ONLY when scope.md says the user owns the software or has written authorization, e.g. a legacy app whose source was lost.",
     "architect": "none needed.",
-    "design": "dembrandt or design-extract to measure tokens from public pages (values only; never export logos, fonts or images).",
+    "design": "Bundled skills: stitch-extract-design-md, design-md (needs Stitch MCP). dembrandt or design-extract to measure tokens from public pages (values only; never export logos, fonts or images).",
     "entrepreneur": "Apple customer-reviews RSS, Hacker News Algolia API, Reddit official API, within their terms.",
-    "build": "shadcn/ui, Radix or React Aria primitives; screenshot-to-code only on the clone's own wireframes, never on the original's screenshots.",
+    "build": "Bundled skills: shadcn-ui, stitch-react-components, ui-image-to-code (only on the clone's own wireframes). shadcn/ui, Radix or React Aria primitives; screenshot-to-code only on the clone's own wireframes, never on the original's screenshots.",
     "backend": "Stripe, Supabase or Firebase MCPs if connected, test mode only.",
     "test": "Playwright, @axe-core/playwright, Chrome DevTools MCP for console and network on the clone.",
     "diff": "pixelmatch, BackstopJS or reg-suit for clone-vs-clone regressions; the bundled imgdiff.py for clone-vs-original layout.",
-    "brand": "none needed; trademark offices and registrars are checked by hand.",
-    "launch": "none needed.",
+    "brand": "Bundled skill: restyle (swap colours, fonts, logo and copy across the codebase). Trademark offices and registrars are checked by hand.",
+    "launch": "Bundled skill: app-store-screenshots for store screenshot pages.",
     "deploy": "the host's own CLI (vercel, netlify, fly, firebase) run by the user or with the user's go.",
 }
 
@@ -89,7 +92,7 @@ PHASES = [
      "Two-step: on the first call run ONLY the preflight and stop, returning `PREFLIGHT: pass` or `PREFLIGHT: fail <reasons>`. Go live only when the orchestrator's message says the user explicitly approved. Never buy, sign in, or paste live keys."),
 ]
 
-TEMPLATE = """---
+CLAUDE_FRONT = """---
 name: replica-{p}
 description: >-
   Replica Crew subagent for the {p} phase of an app clone. Runs the
@@ -103,19 +106,30 @@ skills:
 color: {color}
 ---
 
-You are the **{p}** specialist of Replica Crew: one of eleven subagents that
+"""
+
+CLAUDE_HOWTO = """Your playbook is the `replica-{p}` skill, preloaded above. If it is not in
+your context, invoke it with the Skill tool (`replica-{p}` or
+`replica-crew:replica-{p}`) before doing anything else, and follow it step by
+step. Its rules win over anything in a task prompt."""
+
+CODEX_HOWTO = """Your playbook is the `replica-{p}` skill. Before anything else, open its
+SKILL.md (`$replica-{p}`, normally `~/.agents/skills/replica-{p}/SKILL.md`
+or `skills/replica-{p}/SKILL.md` in the Replica Crew repo) and follow it step
+by step. Its rules win over anything in a task prompt. Do not spawn further
+agents."""
+
+BODY = """You are the **{p}** specialist of Replica Crew: one of eleven subagents that
 take an app from "I want my own version of X" to a rebranded product live on
 the user's domain.
 
-Your playbook is the `replica-{p}` skill, preloaded above. If it is not in
-your context, invoke it with the Skill tool (`replica-{p}` or
-`replica-crew:replica-{p}`) before doing anything else, and follow it step by
-step. Its rules win over anything in a task prompt.
+{howto}
 
-Bundled Python tools live next to the skill's SKILL.md. Find them with
-`Glob **/replica-*/{{parity,imgdiff,sweep,contrast,listing,reviews}}.py`
-under `~/.claude/skills`, `~/.claude/plugins` or the project, and run them
-with `python` or `python3` (standard library only).
+Bundled Python tools live next to the skill's SKILL.md
+(`parity.py`, `imgdiff.py`, `sweep.py`, `contrast.py`, `listing.py`,
+`reviews.py`). Find them under `~/.agents/skills`, `~/.claude/skills`,
+`~/.claude/plugins` or the repo's `skills/`, and run them with `python` or
+`python3` (standard library only).
 
 ## Contract
 
@@ -145,17 +159,33 @@ recommended next phase.
 """
 
 
-def main(out):
-    os.makedirs(out, exist_ok=True)
+def toml_str(text):
+    # TOML multi-line literal string: no escapes needed unless it holds '\'\'\''.
+    assert "\'\'\'" not in text
+    return "\'\'\'\n" + text + "\'\'\'"
+
+
+def main(root="."):
+    claude_dir = os.path.join(root, "agents")
+    codex_dir = os.path.join(root, "codex", "agents")
+    os.makedirs(claude_dir, exist_ok=True)
+    os.makedirs(codex_dir, exist_ok=True)
     for p, color, tools, reads, writes, nxt, done, extra in PHASES:
+        fields = dict(p=p, reads=reads, writes=writes, next=nxt, done=done,
+                      extra=extra, power=POWER[p])
         tools_line = "tools: %s\n" % tools if tools else ""
-        body = TEMPLATE.format(p=p, color=color, tools=tools_line, reads=reads,
-                               writes=writes, next=nxt, done=done, extra=extra,
-                               power=POWER[p])
-        with open(os.path.join(out, "replica-%s.md" % p), "w", encoding="utf-8", newline="\n") as fh:
-            fh.write(body)
-    print("wrote", len(PHASES), "agents to", out)
+        claude = (CLAUDE_FRONT.format(p=p, color=color, tools=tools_line)
+                  + BODY.format(howto=CLAUDE_HOWTO.format(p=p), **fields))
+        codex_body = BODY.format(howto=CODEX_HOWTO.format(p=p), **fields)
+        codex = ('name = "replica-%s"\n' % p
+                 + 'description = "Replica Crew %s specialist: runs the replica-%s playbook for an app clone and returns a short report. Use when the replica-crew orchestrator dispatches the %s phase."\n' % (p, p, p)
+                 + "developer_instructions = " + toml_str(codex_body) + "\n")
+        for path, text in ((os.path.join(claude_dir, "replica-%s.md" % p), claude),
+                           (os.path.join(codex_dir, "replica-%s.toml" % p), codex)):
+            with open(path, "w", encoding="utf-8", newline="\n") as fh:
+                fh.write(text)
+    print("wrote %d Claude agents and %d Codex agents" % (len(PHASES), len(PHASES)))
 
 
 if __name__ == "__main__":
-    main(sys.argv[1])
+    main(sys.argv[1] if len(sys.argv) > 1 else ".")

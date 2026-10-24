@@ -1,26 +1,52 @@
 # Replica Crew
 
-**Clone any app's features with 11 Claude Code subagents.** One command takes
-an app from "I want my own version of X" to a tested, rebranded product on
-your domain: recon, architecture, design system, review mining, build,
-backend, end-to-end tests, parity diff, brand, launch and deploy.
+**Everything for cloning apps and websites with coding agents, in one repo,
+for Claude Code and Codex.** One command takes an app from "I want my own
+version of X" to a tested, rebranded product on your domain, with 11
+specialist subagents. The same repo bundles 15 more open-source clone,
+design-extraction and UI-to-code skills, and maps 70+ related tools.
 
-Built on the MIT [Replica skill pack](https://github.com/Jakeschincariol/replica-skill)
-by Jake Schincariol. Replica Crew adds a specialist subagent per skill, an
-orchestrator that runs independent phases in parallel, and a build-test-diff
-loop that stops only when the clone is shippable.
-
-> **ES:** Clona las funciones de cualquier app con 11 subagentes de Claude
-> Code. Un comando hace recon, arquitectura, diseño, reseñas, construcción,
-> backend, pruebas, paridad, marca, lanzamiento y despliegue. Reglas de sala
-> limpia: se clonan funciones y flujos, nunca código, marca ni contenido.
+> **ES:** Todo para clonar apps y sitios con agentes de código, en un solo
+> repo, para Claude Code y Codex. 11 subagentes (recon, arquitectura,
+> diseño, reseñas, construcción, backend, pruebas, paridad, marca,
+> lanzamiento, despliegue) más 15 skills de clonado y diseño integradas.
+> Reglas de sala limpia: en modo producto se clonan funciones y flujos,
+> nunca código, marca ni contenido.
 
 ```
-/replica-crew https://example-app.com   # whole pipeline
-/replica-recon                           # or any single phase
+Claude Code:  /replica-crew https://example-app.com
+Codex:        $replica-crew https://example-app.com
 ```
 
-## How it runs
+## Install
+
+```bash
+git clone https://github.com/damiantorresmx11/replica-crew
+python replica-crew/scripts/install.py          # Claude Code and/or Codex
+python replica-crew/scripts/install.py --mcp    # + Playwright and Chrome DevTools MCP
+```
+
+Or by hand:
+
+| host | command |
+| --- | --- |
+| Claude Code | `/plugin marketplace add damiantorresmx11/replica-crew` then `/plugin install replica-crew@replica-crew` |
+| Codex | copy `skills/*` to `~/.agents/skills/` and `codex/agents/*.toml` to `~/.codex/agents/` |
+| Codex plugin marketplace | `codex plugin marketplace add damiantorresmx11/replica-crew` |
+| any other agent | read [`AGENTS.md`](AGENTS.md); every `SKILL.md` is plain Markdown |
+
+Requirements: Python 3.8+. Node for Playwright and some bundled skills.
+Tests: `python -m unittest discover -s tests -v`.
+
+## Three modes
+
+| mode | for | engine |
+| --- | --- | --- |
+| `product` (default) | your **own** product with the features of someone else's app | 11 Replica agents, clean room |
+| `faithful` | a site you **own or are authorized** to copy: migrate your site, restore a lost codebase, client work under contract | `clone-team`, `clone-website`, `web-clone`, `stitch-extract-static-html` |
+| `study` | learn how a premium site is built, kept local, assets substituted | `clone-study` |
+
+## Product mode: how it runs
 
 ```
 Wave 0  scope (you)          app, slice, stack, how far, ownership
@@ -32,31 +58,27 @@ Wave 5  brand -> launch
 Wave 6  deploy preflight -> your explicit go -> live
 ```
 
-What changed from running the 11 skills by hand:
-
-- **Specialists.** Each phase runs in its own subagent with its skill
-  preloaded, so the main conversation keeps only short reports, not every
-  file read.
+- **Specialists.** Each phase runs in its own subagent (Claude:
+  `replica-crew:replica-X`; Codex: custom agent `replica-X`), so the main
+  conversation keeps only short reports.
 - **Parallel wave.** Architect, design and the review-reading entrepreneur
-  only need recon, so they run at once. The fixes users ask for go into the
-  feature matrix **before** the build, not after.
-- **Quality loop.** Test and diff repeat with only the gap list until the
-  diff verdict is `shippable` (feature score 80+, no open S1/S2), max three
-  rounds, then it reports honest numbers.
-- **Two stops only.** After recon (scope sanity) and before go-live.
-  Subagents that need a human decision return `NEEDS_USER` instead of
-  guessing.
-- **Audit trail.** Every agent appends a line to `replica/crew-log.md`.
+  run at once; the fixes users ask for enter the feature matrix before the
+  build.
+- **Quality loop.** Test and diff repeat on the gap list until the verdict
+  is `shippable` (feature score 80+, no open S1/S2), max three rounds.
+- **Two stops only.** After recon and before go-live. Agents that need a
+  human decision return `NEEDS_USER` instead of guessing.
+- **Audit trail.** Every agent appends to `replica/crew-log.md`.
 
 ## The eleven agents
 
-| Agent | Skill | Writes |
+| Agent | Does | Writes |
 | --- | --- | --- |
-| `replica-recon` | reverse-engineers the app from public sources and your own account | `recon.md`, `features.csv`, `screens/` |
+| `replica-recon` | maps the app from public sources and your own account | `recon.md`, `features.csv`, `screens/` |
 | `replica-architect` | stack, SQL schema, routes, build order | `architecture.md`, `schema.sql` |
 | `replica-design` | design tokens and component specs, WCAG checked | `design/` |
 | `replica-entrepreneur` | reads real, linked user reviews; fix plan and angle | `feedback.md`, `fixes.md` |
-| `replica-build` | screen by screen, every state, clean room | app code, `build-log.md` |
+| `replica-build` | screen by screen, every state | app code, `build-log.md` |
 | `replica-backend` | auth, DB rules, Stripe test mode, email, jobs | migrations, `backend.md` |
 | `replica-test` | test plan, Playwright, bug log by severity | `test-plan.md`, `bugs.md`, `e2e/` |
 | `replica-diff` | feature parity score and layout diff | `parity.md`, `diffs/` |
@@ -64,53 +86,48 @@ What changed from running the 11 skills by hand:
 | `replica-launch` | landing, pricing, store listing lint | `launch/` |
 | `replica-deploy` | preflight gate, DNS, production, monitoring | `deploy.md` |
 
-Six standard-library Python tools ship with the skills: `imgdiff.py`,
+Six standard-library Python tools ship with them: `imgdiff.py`,
 `parity.py`, `reviews.py`, `contrast.py`, `sweep.py`, `listing.py`.
-No API key, no signup, no pip install.
 
-## Install
+## Bundled skills (15 third-party, all MIT or Apache-2.0)
 
-Claude Code plugin (agents are namespaced `replica-crew:replica-*`):
+| skill | from | used in |
+| --- | --- | --- |
+| `clone-team` | Varalix-Digitech-Solutions/clone-team | faithful: whole sites with a 4-agent team |
+| `clone-website` | JCodesMore/ai-website-cloner-template | faithful: pages to Next.js fast |
+| `web-clone` | Jane-xiaoer/claude-skill-web-clone | faithful: WebGL, Canvas, Three.js |
+| `clone-study` | luukalleman/clone-study | study mode |
+| `design-mirror` | brightdata/skills | apply a look to your existing app (Bright Data key) |
+| `stitch-extract-design-md`, `stitch-extract-static-html`, `design-md`, `site-md`, `stitch-react-components`, `shadcn-ui` | google-labs-code/stitch-skills | recon, design, build |
+| `video-to-ui` | mmohajer9/video-to-ui | recon from walkthrough videos |
+| `ui-image-to-code` | zwq-top/ui-image-to-code-studio | build from your own wireframes |
+| `restyle` | Mahanaicoach/ai-site-cloner | brand |
+| `app-store-screenshots` | ParthJadhav/app-store-screenshots | launch |
 
-```
-/plugin marketplace add damiantorresmx11/replica-crew
-/plugin install replica-crew@replica-crew
-```
-
-Manual (plain names):
-
-```bash
-git clone https://github.com/damiantorresmx11/replica-crew
-cp -r replica-crew/replica-* ~/.claude/skills/
-cp replica-crew/agents/*.md ~/.claude/agents/
-```
-
-Other agents (Codex, Cursor, Gemini CLI): read [`AGENTS.md`](AGENTS.md).
-Each `replica-*/SKILL.md` is plain Markdown and works as a prompt on its own.
-
-Requirements: Python 3.8+. Optional: Node for Playwright, a browser MCP for
-recon. Tests: `python -m unittest discover -s tests -v`.
+Each keeps its license (`LICENSE.upstream`) and source commit
+(`UPSTREAM.md`). Details: [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md).
 
 ## Ecosystem
 
-[`docs/ECOSYSTEM.md`](docs/ECOSYSTEM.md) maps 30 open-source tools for AI
-app cloning (verified 2026-10-23): ai-website-cloner-template,
-screenshot-to-code, open-lovable, REA, Chrome DevTools MCP, Playwright MCP,
-dembrandt, design-extract, BackstopJS, pixelmatch, GhidraMCP, jadx and
-apktool MCPs, and more, with the phase and agent each one plugs into. Agents
-use them only if already installed.
+[`docs/ECOSYSTEM.md`](docs/ECOSYSTEM.md) maps 70+ tools verified on GitHub
+in October 2026: REA, screenshot-to-code, open-lovable, Chrome DevTools and
+Playwright MCP, Figma MCPs, dembrandt, design-extract, DESIGN.md, BackstopJS,
+pixelmatch, GhidraMCP, jadx and apktool MCPs, mitmproxy2swagger, crawl4ai and
+more, with the phase and agent each one fits. Apps, libraries and MCP servers
+are linked rather than copied: they are separate products with their own
+runtimes and release cycles.
 
-## Rules (inherited from Replica, enforced by every agent)
+## Rules
 
-- Rebuild **what an app does**, never what it owns: no source code, bundles,
-  private APIs, logos, icons, licensed fonts, copy or content.
+- Product mode rebuilds **what an app does**, never what it owns: no source
+  code, bundles, private APIs, logos, icons, licensed fonts, copy or content.
 - Public sources and your own account only. No logging into other accounts,
   no paywall tricks, no scraping behind logins, no hammering their servers.
-- Binary reverse-engineering tools are only for software you own or are
-  authorized to analyze, recorded in `replica/scope.md`.
+- Faithful mode and binary reverse-engineering tools only for software you
+  own or are authorized to copy or analyze, recorded in `replica/scope.md`.
 - No fabricated reviews, testimonials, numbers or "available" checks.
-- Nothing launches under the original's name: the sweep must be clean and
-  you give the go.
+- Nothing launches under the original's name, and nothing goes live without
+  your go.
 
 This is not legal advice. Read the original's terms, run the trademark
 checks `replica-brand` lists, and talk to a lawyer before you charge money.
@@ -118,5 +135,7 @@ checks `replica-brand` lists, and talk to a lawyer before you charge money.
 ## Credits and license
 
 MIT. Replica skills and tools © 2026 Jake Schincariol
-([upstream README](docs/UPSTREAM-README.md)). Agents, orchestrator and docs
-© 2026 Damian Torres / [DMLABS](https://dmlabs.mx).
+([Jakeschincariol/replica-skill](https://github.com/Jakeschincariol/replica-skill),
+[upstream README](docs/UPSTREAM-README.md)). Bundled skills © their authors
+under their own licenses. Agents, orchestrator, installer and docs © 2026
+Damian Torres / [DMLABS](https://dmlabs.mx).

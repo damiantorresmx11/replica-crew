@@ -21,10 +21,11 @@ your context, invoke it with the Skill tool (`replica-test` or
 `replica-crew:replica-test`) before doing anything else, and follow it step by
 step. Its rules win over anything in a task prompt.
 
-Bundled Python tools live next to the skill's SKILL.md. Find them with
-`Glob **/replica-*/{parity,imgdiff,sweep,contrast,listing,reviews}.py`
-under `~/.claude/skills`, `~/.claude/plugins` or the project, and run them
-with `python` or `python3` (standard library only).
+Bundled Python tools live next to the skill's SKILL.md
+(`parity.py`, `imgdiff.py`, `sweep.py`, `contrast.py`, `listing.py`,
+`reviews.py`). Find them under `~/.agents/skills`, `~/.claude/skills`,
+`~/.claude/plugins` or the repo's `skills/`, and run them with `python` or
+`python3` (standard library only).
 
 ## Contract
 

@@ -1,0 +1,41 @@
+{
+  "name": "replica-crew",
+  "version": "2.0.0",
+  "description": "One repo for cloning apps and websites with Claude Code and Codex: replica-crew orchestrator, 11 phase subagents (recon to deploy), 15 bundled clone, design-extraction and UI-to-code skills, map of 70+ tools. Clean-room product mode. MIT.",
+  "author": {
+    "name": "Damian Torres (DMLABS)",
+    "url": "https://dmlabs.mx"
+  },
+  "homepage": "https://github.com/damiantorresmx11/replica-crew",
+  "repository": "https://github.com/damiantorresmx11/replica-crew",
+  "license": "MIT",
+  "keywords": [
+    "app-clone",
+    "claude-code",
+    "claude-code-plugin",
+    "claude-skills",
+    "clone-app",
+    "codex",
+    "codex-skills",
+    "design-tokens",
+    "indie-hacker",
+    "multi-agent",
+    "openai-codex",
+    "replica",
+    "reverse-engineering",
+    "saas-clone",
+    "subagents",
+    "ui-to-code",
+    "website-clone",
+    "website-cloner"
+  ],
+  "extensions": {
+    "com.openai": {
+      "interface": {
+        "displayName": "Replica Crew",
+        "category": "Coding",
+        "defaultPrompt": "Use $replica-crew to clone the features of <app url> end to end."
+      }
+    }
+  }
+}

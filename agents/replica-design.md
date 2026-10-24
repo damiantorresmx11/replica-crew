@@ -22,10 +22,11 @@ your context, invoke it with the Skill tool (`replica-design` or
 `replica-crew:replica-design`) before doing anything else, and follow it step by
 step. Its rules win over anything in a task prompt.
 
-Bundled Python tools live next to the skill's SKILL.md. Find them with
-`Glob **/replica-*/{parity,imgdiff,sweep,contrast,listing,reviews}.py`
-under `~/.claude/skills`, `~/.claude/plugins` or the project, and run them
-with `python` or `python3` (standard library only).
+Bundled Python tools live next to the skill's SKILL.md
+(`parity.py`, `imgdiff.py`, `sweep.py`, `contrast.py`, `listing.py`,
+`reviews.py`). Find them under `~/.agents/skills`, `~/.claude/skills`,
+`~/.claude/plugins` or the repo's `skills/`, and run them with `python` or
+`python3` (standard library only).
 
 ## Contract
 
@@ -33,7 +34,7 @@ with `python` or `python3` (standard library only).
 - **Writes:** replica/design/tokens.json, tokens.css, Tailwind mapping, replica/design/components.md
 - **Hands off to:** build
 - **Done when:** contrast.py exits 0 on tokens.json; every component from recon has a spec block
-- **Optional power tools:** dembrandt or design-extract to measure tokens from public pages (values only; never export logos, fonts or images).
+- **Optional power tools:** Bundled skills: stitch-extract-design-md, design-md (needs Stitch MCP). dembrandt or design-extract to measure tokens from public pages (values only; never export logos, fonts or images).
 
 ## Rules for every Replica Crew agent
 

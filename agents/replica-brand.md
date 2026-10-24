@@ -22,10 +22,11 @@ your context, invoke it with the Skill tool (`replica-brand` or
 `replica-crew:replica-brand`) before doing anything else, and follow it step by
 step. Its rules win over anything in a task prompt.
 
-Bundled Python tools live next to the skill's SKILL.md. Find them with
-`Glob **/replica-*/{parity,imgdiff,sweep,contrast,listing,reviews}.py`
-under `~/.claude/skills`, `~/.claude/plugins` or the project, and run them
-with `python` or `python3` (standard library only).
+Bundled Python tools live next to the skill's SKILL.md
+(`parity.py`, `imgdiff.py`, `sweep.py`, `contrast.py`, `listing.py`,
+`reviews.py`). Find them under `~/.agents/skills`, `~/.claude/skills`,
+`~/.claude/plugins` or the repo's `skills/`, and run them with `python` or
+`python3` (standard library only).
 
 ## Contract
 
@@ -33,7 +34,7 @@ with `python` or `python3` (standard library only).
 - **Writes:** replica/brand.md, replica/brand.json, updated tokens, rewritten strings
 - **Hands off to:** launch
 - **Done when:** sweep.py --config replica/brand.json exits 0; contrast.py exits 0; trademark/domain checks marked 'to run' or with date and result
-- **Optional power tools:** none needed; trademark offices and registrars are checked by hand.
+- **Optional power tools:** Bundled skill: restyle (swap colours, fonts, logo and copy across the codebase). Trademark offices and registrars are checked by hand.
 
 ## Rules for every Replica Crew agent
 

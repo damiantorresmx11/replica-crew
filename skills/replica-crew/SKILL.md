@@ -1,14 +1,15 @@
 ---
 name: replica-crew
 description: >-
-  Orchestrates the whole Replica pipeline with eleven specialist subagents
+  Single entry point for cloning apps and websites in Claude Code or Codex.
+  Picks the mode (product, faithful, study) and orchestrates the whole Replica pipeline with eleven specialist subagents
   (recon, architect, design, entrepreneur, build, backend, test, diff, brand,
   launch, deploy): runs independent phases in parallel, loops build, test and
   diff until the clone is shippable, and stops for the user only at scope and
   before going live. Use when the user says "clone this app end to end",
   "run the whole replica", "replica crew", "build my own version of X from
-  start to finish", "use the 11 agents", or gives an app URL and wants the
-  full pipeline instead of one step.
+  start to finish", "use the 11 agents", "clone this website", or gives an app or site URL and
+  wants it rebuilt instead of one step.
 ---
 
 # replica-crew
@@ -17,14 +18,52 @@ The eleven `replica-*` skills are the playbooks. This skill is the conductor:
 it never does a phase's work itself, it dispatches the matching subagent,
 reads the short report, decides the next wave, and keeps the user posted.
 
-Subagent types (use whichever exists in this session):
+Works in **Claude Code** and **Codex**:
 
-| phase | plugin install | manual install |
+| host | how to dispatch phase `X` |
+| --- | --- |
+| Claude Code, plugin install | Agent tool, `subagent_type: replica-crew:replica-X` |
+| Claude Code, manual install | Agent tool, `subagent_type: replica-X` |
+| Codex | spawn the custom agent `replica-X` (from `~/.codex/agents/replica-X.toml`), e.g. "Have replica-recon map <url>". Parallel waves = spawn them in the same turn. |
+
+If no subagents are available, run the `replica-X` skill in the main thread,
+one phase at a time. Same files, same order, just slower.
+
+## Pick the mode first
+
+| mode | when | engine |
 | --- | --- | --- |
-| each phase `X` | `replica-crew:replica-X` | `replica-X` |
+| `product` (default) | build **your own** product with the features of someone else's app | the eleven Replica agents, waves below |
+| `faithful` | a site the user **owns or is authorized** to copy: migrating their own site to a new stack, restoring a lost codebase, a client's site under contract | the faithful-clone skills below |
+| `study` | learn how a premium site is built, kept local, assets substituted, never deployed as-is | `clone-study` |
 
-If neither is available, fall back to running the `replica-X` skill in the
-main thread, one phase at a time. Same files, same order, just slower.
+`faithful` copies real content and assets, so it needs the ownership answer
+(question 6) to be `yes`. Without it, offer `product` or `study` instead.
+
+Faithful-clone skills bundled in this repo (pick one, do not stack them):
+
+| skill | best for |
+| --- | --- |
+| `clone-team` | whole sites, any stack, with a Manager + Frontend + Backend Architect + Tester team and resumable state. Needs Node and its `scripts/install-deps.sh` once. |
+| `clone-website` | one to a few pages fast into a Next.js app, Framer and animated sites |
+| `web-clone` | WebGL, Canvas, Three.js heavy sites; decision tree in Chinese |
+| `design-mirror` | apply a site's look to the user's **existing** app (needs a Bright Data key) |
+
+`stitch-extract-static-html` also fits `faithful` when only static HTML of a
+page is needed.
+
+Helper skills the phase agents may call (all bundled, all optional):
+
+| phase | helper skills |
+| --- | --- |
+| recon | `video-to-ui` (public walkthrough videos), `stitch-extract-design-md` |
+| design | `stitch-extract-design-md`, `design-md` (Stitch MCP) |
+| build | `shadcn-ui`, `stitch-react-components`, `ui-image-to-code` (own wireframes only), `site-md` |
+| brand | `restyle` |
+| launch | `app-store-screenshots` |
+
+In `faithful` and `study` mode, hand the job to that skill and keep only the
+reporting duties below. Waves 1 to 6 are the `product` mode.
 
 ## Wave 0: scope (main thread, with the user)
 
@@ -38,7 +77,7 @@ and get one yes:
 5. How far to go: `plan` (waves 1-2), `build` (to wave 4), or `ship` (all).
 6. Ownership: does the user own the target or hold written authorization
    (e.g. their own legacy app with lost source)? Default `no`. Only `yes`
-   unlocks the binary tools listed in `docs/ECOSYSTEM.md` for recon.
+   unlocks `faithful` mode and the binary tools in `docs/ECOSYSTEM.md`.
 
 Read the clean-room rules in `replica-recon` and say them in one line. If the
 user wants anything they forbid (copying code, logging into someone else's

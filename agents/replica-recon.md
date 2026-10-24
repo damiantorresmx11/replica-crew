@@ -21,10 +21,11 @@ your context, invoke it with the Skill tool (`replica-recon` or
 `replica-crew:replica-recon`) before doing anything else, and follow it step by
 step. Its rules win over anything in a task prompt.
 
-Bundled Python tools live next to the skill's SKILL.md. Find them with
-`Glob **/replica-*/{parity,imgdiff,sweep,contrast,listing,reviews}.py`
-under `~/.claude/skills`, `~/.claude/plugins` or the project, and run them
-with `python` or `python3` (standard library only).
+Bundled Python tools live next to the skill's SKILL.md
+(`parity.py`, `imgdiff.py`, `sweep.py`, `contrast.py`, `listing.py`,
+`reviews.py`). Find them under `~/.agents/skills`, `~/.claude/skills`,
+`~/.claude/plugins` or the repo's `skills/`, and run them with `python` or
+`python3` (standard library only).
 
 ## Contract
 
@@ -32,7 +33,7 @@ with `python` or `python3` (standard library only).
 - **Writes:** replica/recon.md, replica/features.csv, replica/screens/
 - **Hands off to:** architect, design and entrepreneur (in parallel)
 - **Done when:** recon.md has screens (S-IDs), flows (F-IDs), components, data model with confidence, sources table with URLs; features.csv has every row with priority and clone=no
-- **Optional power tools:** Chrome DevTools MCP or Playwright MCP (read public pages at human speed), Firecrawl MCP map endpoint for a public sitemap only. Binary tools (REA, GhidraMCP, jadx/apktool MCP, frida-mcp) ONLY when scope.md says the user owns the software or has written authorization, e.g. a legacy app whose source was lost.
+- **Optional power tools:** Bundled skills: video-to-ui for public walkthrough videos, stitch-extract-design-md for a DESIGN.md of public pages. Chrome DevTools MCP or Playwright MCP (read public pages at human speed), Firecrawl MCP map endpoint for a public sitemap only. Binary tools (REA, GhidraMCP, jadx/apktool MCP, frida-mcp) ONLY when scope.md says the user owns the software or has written authorization, e.g. a legacy app whose source was lost.
 
 ## Rules for every Replica Crew agent
 

@@ -21,10 +21,11 @@ your context, invoke it with the Skill tool (`replica-build` or
 `replica-crew:replica-build`) before doing anything else, and follow it step by
 step. Its rules win over anything in a task prompt.
 
-Bundled Python tools live next to the skill's SKILL.md. Find them with
-`Glob **/replica-*/{parity,imgdiff,sweep,contrast,listing,reviews}.py`
-under `~/.claude/skills`, `~/.claude/plugins` or the project, and run them
-with `python` or `python3` (standard library only).
+Bundled Python tools live next to the skill's SKILL.md
+(`parity.py`, `imgdiff.py`, `sweep.py`, `contrast.py`, `listing.py`,
+`reviews.py`). Find them under `~/.agents/skills`, `~/.claude/skills`,
+`~/.claude/plugins` or the repo's `skills/`, and run them with `python` or
+`python3` (standard library only).
 
 ## Contract
 
@@ -32,7 +33,7 @@ with `python` or `python3` (standard library only).
 - **Writes:** app code, replica/build-log.md, replica/clone-screens/, features.csv clone column
 - **Hands off to:** backend (if data layer is fake) else test
 - **Done when:** vertical slice works; every screen in the requested batch meets the skill's definition of done; build-log.md updated
-- **Optional power tools:** shadcn/ui, Radix or React Aria primitives; screenshot-to-code only on the clone's own wireframes, never on the original's screenshots.
+- **Optional power tools:** Bundled skills: shadcn-ui, stitch-react-components, ui-image-to-code (only on the clone's own wireframes). shadcn/ui, Radix or React Aria primitives; screenshot-to-code only on the clone's own wireframes, never on the original's screenshots.
 
 ## Rules for every Replica Crew agent
 

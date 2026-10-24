@@ -22,10 +22,11 @@ your context, invoke it with the Skill tool (`replica-launch` or
 `replica-crew:replica-launch`) before doing anything else, and follow it step by
 step. Its rules win over anything in a task prompt.
 
-Bundled Python tools live next to the skill's SKILL.md. Find them with
-`Glob **/replica-*/{parity,imgdiff,sweep,contrast,listing,reviews}.py`
-under `~/.claude/skills`, `~/.claude/plugins` or the project, and run them
-with `python` or `python3` (standard library only).
+Bundled Python tools live next to the skill's SKILL.md
+(`parity.py`, `imgdiff.py`, `sweep.py`, `contrast.py`, `listing.py`,
+`reviews.py`). Find them under `~/.agents/skills`, `~/.claude/skills`,
+`~/.claude/plugins` or the repo's `skills/`, and run them with `python` or
+`python3` (standard library only).
 
 ## Contract
 
@@ -33,7 +34,7 @@ with `python` or `python3` (standard library only).
 - **Writes:** replica/launch/ (landing.md, pricing.md, listing.json, launch-plan.md) and the landing page in code
 - **Hands off to:** deploy
 - **Done when:** listing.py exits 0 (if shipping to stores); no fake proof anywhere
-- **Optional power tools:** none needed.
+- **Optional power tools:** Bundled skill: app-store-screenshots for store screenshot pages.
 
 ## Rules for every Replica Crew agent
 
