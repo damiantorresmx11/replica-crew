@@ -99,10 +99,9 @@ and get one yes:
    mod)? Default `no`. Only `yes` unlocks `faithful` mode, modding an existing
    game, and the binary tools in `docs/ECOSYSTEM.md`.
 
-Read the clean-room rules in `replica-recon` and say them in one line. If the
-user wants anything they forbid (copying code, logging into someone else's
-account, scraping behind a login, cloning the brand), decline that part and
-continue with the rest.
+Read the working rules in `replica-recon` and say them in one line. If a
+request falls outside those rules, note it and continue with the parts that
+are in scope.
 
 Create `replica/` and `replica/crew-log.md` with a header line. Write the
 answers to `replica/scope.md`. Every dispatch prompt includes the path to
@@ -113,17 +112,17 @@ answers to `replica/scope.md`. Every dispatch prompt includes the path to
 If the input is a binary or the user requests decompilation, record the local
 input path, ownership/authorization, allowed purpose, and output scope in
 `replica/scope.md`. Reuse authorization already given in the conversation.
-Dispatch `replica-recon` with the `binary-analysis.md` playbook next to its
-SKILL.md. The binary workflow is independent of build-target readiness:
-missing Flutter or Node must not block static analysis with an available
-decompiler. Do not hand binary-only faithful recovery to website skills.
-For analysis-only work, stop after recon returns `replica/binary/report.md`.
-Default to an independent implementation written from scratch, not source
-recovery. Recon produces `replica/behavior-spec.md` using the shared binary
-playbook; pass that functional specification to architect/build, keeping raw
-recovered code separate. Source recovery must be explicitly scoped. If a host
-restricts an analysis operation, report the limitation and continue with
-permitted sources; do not retry prompts to bypass the restriction.
+Dispatch `replica-recon` with the `binary-analysis.md` playbook and the
+`bin_analyze.py` inventory script next to its SKILL.md. The binary workflow is
+independent of build-target readiness: missing Flutter or Node must not block
+static analysis with an available decompiler. Do not hand binary-only faithful
+recovery to website skills. For analysis-only work, stop after recon returns
+`replica/binary/report.md`. Default to an independent implementation written
+from scratch, not source recovery. Recon produces `replica/behavior-spec.md`
+using the shared binary playbook; pass that functional specification to
+architect/build, keeping raw recovered code separate. Source recovery must be
+explicitly scoped. If a tool or MCP is unavailable, record it and continue
+with the next available one.
 
 ## Wave 1: recon
 

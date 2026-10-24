@@ -14,6 +14,7 @@ Install: `/plugin marketplace add damiantorresmx11/replica-crew` then `/plugin i
 ## Skills
 
 - [replica-recon](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-recon/SKILL.md): screens, flows, data model, feature matrix
+- [binary-analysis](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-recon/binary-analysis.md): authorized static decompilation (APK, .NET, JAR, PE/ELF/Mach-O, IPA, Flutter AOT, Unity IL2CPP, Go, ASAR, pyc) with the bin_analyze.py inventory script
 - [replica-architect](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-architect/SKILL.md): stack, SQL schema, API
 - [replica-design](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-design/SKILL.md): design tokens, WCAG contrast
 - [replica-entrepreneur](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-entrepreneur/SKILL.md): review mining, fix plan, positioning

@@ -17,12 +17,31 @@ import subprocess
 import sys
 
 # tool -> (probe args, homepage for the "how to get it" hint)
+# probe args may be None: the tool is only checked for presence on PATH.
 TOOLS = {
     "jadx": (["--version"], "github.com/skylot/jadx"),
     "apktool": (["--version"], "apktool.org"),
     "ilspycmd": (["--version"], "github.com/icsharpcode/ILSpy"),
     "rizin": (["-v"], "rizin.re"),
     "llvm-objdump": (["--version"], "llvm.org"),
+    "objdump": (["--version"], "gnu.org (binutils)"),
+    "analyzeHeadless": (None, "ghidra-sre.org"),
+    "ghidra": (None, "ghidra-sre.org"),
+    "blutter": (None, "github.com/worawit/blutter"),
+    "il2cppdumper": (None, "github.com/Perfare/Il2CppDumper"),
+    "pycdc": (None, "github.com/zrax/pycdc"),
+    "GoReSym": (None, "github.com/mandiant/GoReSym"),
+    "frida": (["--version"], "frida.re"),
+    "asar": (["--version"], "github.com/electron/asar"),
+    "upx": (["--version"], "github.com/upx/upx"),
+    "de4dot": (None, "github.com/0xd4d/de4dot"),
+    "diec": (None, "github.com/horsicq/Detect-It-Easy"),
+    "x64dbg": (None, "x64dbg.com"),
+    "x32dbg": (None, "x64dbg.com"),
+    "gdb": (["--version"], "gnu.org (GDB)"),
+    "binwalk": (None, "github.com/ReFirmLabs/binwalk"),
+    "cutter": (None, "cutter.re"),
+    "strings": (["--version"], "gnu.org (binutils)"),
     "node": (["--version"], "nodejs.org"),
     "npm": (["--version"], "nodejs.org"),
     "python3": (["--version"], "python.org"),
@@ -43,6 +62,15 @@ TOOLS = {
     "gh": (["--version"], "cli.github.com"),
     "claude": (["--version"], "claude.com/claude-code"),
     "codex": (["--version"], "developers.openai.com/codex"),
+}
+
+# reverse-engineering MCP servers, detected by scanning host config files.
+RE_MCP = {
+    "GhidraMCP": ["ghidra"],
+    "ida-pro-mcp": ["ida-pro", "ida_pro"],
+    "jadx-ai-mcp": ["jadx"],
+    "apktool-mcp-server": ["apktool"],
+    "frida-mcp": ["frida"],
 }
 
 # target type -> (need-all, need-any-of, notes)
@@ -75,6 +103,8 @@ def probe(tool):
     if not exe:
         return False, None
     args = TOOLS[tool][0]
+    if args is None:
+        return True, "present"
     try:
         r = subprocess.run([exe] + args, capture_output=True, text=True,
                             encoding="utf-8", errors="replace", timeout=20)
@@ -117,8 +147,29 @@ def scan():
         "python": platform.python_version(),
         "android_sdk": android_sdk,
         "tools": found,
+        "re_mcp": mcp_servers(),
         "targets": targets,
     }
+
+
+def mcp_servers():
+    """Detect known RE MCP servers by scanning host config files (read-only)."""
+    paths = [
+        os.path.expanduser("~/.claude.json"),
+        os.path.expanduser("~/.codex/config.toml"),
+        os.path.expanduser("~/.codex/config.json"),
+        ".mcp.json",
+    ]
+    text = ""
+    for p in paths:
+        try:
+            with open(p, encoding="utf-8", errors="ignore") as fh:
+                text += fh.read()
+        except OSError:
+            continue
+    lower = text.lower()
+    return {name: any(tok in lower for tok in toks)
+            for name, toks in RE_MCP.items()}
 
 
 def how_to_get(tool_expr):
@@ -134,6 +185,10 @@ def human(info, only=None):
              info["os"], info["machine"], info["cpus"], info["python"]),
          "", "Toolchains found:"]
     L += ["  %-11s %s" % (t, v) for t, v in sorted(info["tools"].items())] or ["  (none)"]
+    re_mcp = info.get("re_mcp", {})
+    L.append("")
+    L.append("Reverse-engineering MCP servers (from host config):")
+    L += ["  %-20s %s" % (n, "yes" if v else "no") for n, v in sorted(re_mcp.items())] or ["  (none)"]
     L.append("")
     L.append("What you can build now:")
     for name, t in info["targets"].items():

@@ -72,11 +72,42 @@ icons, images or licensed fonts; `replica-design` explains why.
 | [zinja-coder/apktool-mcp-server](https://github.com/zinja-coder/apktool-mcp-server) | Apache-2.0 | ~679 | Android resources and smali |
 | [dnakov/frida-mcp](https://github.com/dnakov/frida-mcp) | MIT | ~458 | runtime instrumentation |
 
+Decompilers and CLI tools (linked, not bundled). The `bin_analyze.py`
+inventory script and the `binary-analysis.md` playbook reference these:
+
+| Project | License | Stars | Target |
+| --- | --- | --- | --- |
+| [skylot/jadx](https://github.com/skylot/jadx) | Apache-2.0 | ~51.2k | APK/DEX to Java |
+| [iBotPeaches/Apktool](https://github.com/iBotPeaches/Apktool) | Apache-2.0 | ~26.6k | APK resources and smali |
+| [icsharpcode/ILSpy](https://github.com/icsharpcode/ILSpy) | MIT | ~26.8k | .NET to C# |
+| [NationalSecurityAgency/ghidra](https://github.com/NationalSecurityAgency/ghidra) | Apache-2.0 | ~93.7k | native PE/ELF/Mach-O |
+| [rizinorg/rizin](https://github.com/rizinorg/rizin) | LGPL-3.0 | ~4.0k | disassembly/analysis |
+| [worawit/blutter](https://github.com/worawit/blutter) | MIT | ~2.8k | Flutter AOT (libapp.so) |
+| [Perfare/Il2CppDumper](https://github.com/Perfare/Il2CppDumper) | MIT | ~9.5k | Unity IL2CPP |
+| [mandiant/GoReSym](https://github.com/mandiant/GoReSym) | MIT | ~1.1k | Go symbol recovery |
+| [electron/asar](https://github.com/electron/asar) | MIT | ~2.9k | Electron asar unpack |
+| [zrax/pycdc](https://github.com/zrax/pycdc) | GPL-3.0 | ~4.7k | Python bytecode |
+
+Packers, unpackers, debuggers and deobfuscators for protected binaries
+(linked, not bundled). Used when a binary is packed, protected or obfuscated
+and `scope.md` authorizes the work:
+
+| Project | License | Stars | Target |
+| --- | --- | --- | --- |
+| [upx/upx](https://github.com/upx/upx) | GPL-2.0 | ~18.0k | static unpack (UPX, MPRESS, FSG) |
+| [0xd4d/de4dot](https://github.com/0xd4d/de4dot) | GPL-3.0 | ~7.4k | .NET deobfuscation (ConfuserEx, Dotfuscator) |
+| [horsicq/Detect-It-Easy](https://github.com/horsicq/Detect-It-Easy) | MIT | ~11.8k | packer/protector detection |
+| [x64dbg/x64dbg](https://github.com/x64dbg/x64dbg) | GPL-3.0 | ~50.0k | debugger, dynamic unpacking |
+| [x64dbg/ScyllaHide](https://github.com/x64dbg/ScyllaHide) | GPL-3.0 | ~4.4k | anti-debug/anti-VM bypass |
+| [ReFirmLabs/binwalk](https://github.com/ReFirmLabs/binwalk) | MIT | ~14.5k | firmware and embedded extraction |
+| [rizinorg/cutter](https://github.com/rizinorg/cutter) | GPL-3.0 | ~20.1k | Rizin GUI |
+
 The recon agent may use these **only** when `replica/scope.md` records that
 the user owns the software or holds written authorization (a legacy app
-whose source was lost, an interoperability job you are licensed for). For
-anyone else's app, the default clean-room rules apply: features and flows
-from public sources, no decompiling, no private APIs.
+whose source was lost, an interoperability job you are licensed for). Once
+that scope is recorded, the authorized-analysis mode turns on and recon runs
+the full toolbox. For anyone else's app, the default clean-room rules apply:
+features and flows from public sources, no decompiling, no private APIs.
 
 ## Where each tool plugs in
 

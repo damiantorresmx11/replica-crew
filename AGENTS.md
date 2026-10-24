@@ -12,6 +12,8 @@ agents:
   It picks a mode (`product`, `faithful`, `study`) and runs the phases.
 - `skills/replica-<phase>/`: the eleven Replica playbooks (recon, architect,
   design, entrepreneur, build, backend, test, diff, brand, launch, deploy).
+- `skills/replica-recon/bin_analyze.py` and `binary-analysis.md`: inventory,
+  format detection and tool selection for authorized binary analysis.
 - `skills/<other>/`: 15 bundled third-party skills (faithful clones, design
   extraction, UI to code, store screenshots). See `THIRD_PARTY_NOTICES.md`.
 - `agents/*.md`: the eleven phase subagents for Claude Code.

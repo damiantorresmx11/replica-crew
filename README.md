@@ -28,17 +28,19 @@ Check the machine any time: `python skills/replica-capabilities/doctor.py`.
 
 ## Binary decompilation (Claude Code and Codex)
 
-Both hosts support authorized static analysis of APK/DEX, .NET assemblies,
-Java bytecode and native PE/ELF/Mach-O binaries through `replica-recon`.
-Use an installed decompiler (JADX, ILSpy, CFR, Ghidra) or a connected MCP.
-The agents inventory inputs, record hashes, run the appropriate tool and
-write `replica/binary/report.md` with evidence and recovery limitations.
-The default goal is to understand behavior and build an independent app from
-scratch. Recon hands a functional `replica/behavior-spec.md` to the builders;
-raw recovered code is kept separate. If analysis is restricted, agents continue
-with permitted documentation, screenshots and behavior observations.
-Record ownership/authorization and analysis scope in `replica/scope.md`.
-Recovered code stays out of product-mode clones.
+Both hosts support authorized static analysis through `replica-recon`. When
+`replica/scope.md` records ownership or written authorization, the
+authorized-analysis mode turns on and recon proceeds with the full toolbox:
+APK/DEX (JADX, Apktool), .NET (ILSpy), JAR/class (CFR), native PE/ELF/Mach-O
+and iOS IPA (Ghidra, Rizin), Flutter AOT (blutter), Unity IL2CPP
+(Il2CppDumper), Go (GoReSym), Electron ASAR (asar), Python bytecode (pycdc),
+or a connected MCP (GhidraMCP, ida-pro-mcp, jadx-ai-mcp, apktool-mcp-server,
+frida-mcp). The bundled `bin_analyze.py` inventories inputs, records SHA-256,
+detects format from magic bytes, and picks the tool. Recon writes
+`replica/binary/report.md` with evidence and a functional
+`replica/behavior-spec.md` for the builders; raw recovered code is kept
+separate and stays out of product-mode clones. Record ownership/authorization
+and analysis scope in `replica/scope.md`.
 
 ```text
 Claude Code: /replica-crew Analyze my local binary <path>; I own it. Static decompilation only.
@@ -178,8 +180,9 @@ Wave 6  deploy preflight -> your explicit go -> live
 | `replica-launch` | landing, pricing, store listing lint | `launch/` |
 | `replica-deploy` | preflight gate, DNS, production, monitoring | `deploy.md` |
 
-Six standard-library Python tools ship with them: `imgdiff.py`,
-`parity.py`, `reviews.py`, `contrast.py`, `sweep.py`, `listing.py`.
+Seven standard-library Python tools ship with them: `bin_analyze.py`,
+`imgdiff.py`, `parity.py`, `reviews.py`, `contrast.py`, `sweep.py`,
+`listing.py`.
 
 ## Bundled skills (15 third-party, all MIT or Apache-2.0)
 
@@ -211,18 +214,18 @@ runtimes and release cycles.
 
 ## Rules
 
-- Product mode rebuilds **what an app does**, never what it owns: no source
-  code, bundles, private APIs, logos, icons, licensed fonts, copy or content.
+- Product mode rebuilds what an app does, never what it owns: no source code,
+  bundles, private APIs, logos, icons, licensed fonts, copy or content.
 - Public sources and your own account only. No logging into other accounts,
-  no paywall tricks, no scraping behind logins, no hammering their servers.
-- Faithful mode and binary reverse-engineering tools only for software you
-  own or are authorized to copy or analyze, recorded in `replica/scope.md`.
+  no scraping behind logins, no hammering their servers.
+- Faithful mode and binary analysis apply to software you own or are
+  authorized to copy or analyze, recorded in `replica/scope.md`; once
+  recorded, the full toolbox is available.
 - No fabricated reviews, testimonials, numbers or "available" checks.
 - Nothing launches under the original's name, and nothing goes live without
   your go.
 
-This is not legal advice. Read the original's terms, run the trademark
-checks `replica-brand` lists, and talk to a lawyer before you charge money.
+Run the trademark checks `replica-brand` lists before you charge money.
 
 ## Credits and license
 

@@ -25,33 +25,28 @@ replica/screens/        reference screenshots of the original. Never shipped.
 
 ## Authorized binary analysis (Claude Code and Codex)
 
-For an APK, DEX, JAR, .NET assembly or native executable/library, read
-[binary-analysis.md](binary-analysis.md) first. When scope.md records ownership
-or written authorization and the requested analysis, that workflow permits
-static decompilation and supersedes the clean-room source restriction below
-only for the authorized target. Without that scope, continue public recon.
-Recovered code never enters a product-mode clone.
+For an APK, DEX, JAR, .NET assembly, IPA/Mach-O, Flutter AOT, Unity IL2CPP,
+Electron ASAR, Go or native executable/library, read
+[binary-analysis.md](binary-analysis.md) first and run
+[bin_analyze.py](bin_analyze.py) to inventory hashes, detect the format and
+pick the tool. When `replica/scope.md` records ownership or written
+authorization and the requested analysis, that workflow permits static
+decompilation and supersedes the clean-room source restriction below only for
+the authorized target. Without that scope, continue public recon. Recovered
+code never enters a product-mode clone.
 
-## The rules, before anything else
+## Working rules
 
-This skill rebuilds **functionality and UX patterns**, clean-room style. It
-studies what the app does and how a user moves through it. It does not take
-anything the app owns.
+This skill rebuilds functionality and UX patterns. It studies what the app
+does and how a user moves through it, and it does not take what the app owns.
 
-- **Public sources and the user's own account only.** Never log into an
-  account that is not the user's, never ask for a password, never get past a
-  paywall or a login by any trick.
-- **Reading, not scraping.** No crawlers, no bulk downloads, no loops. If a
-  browser tool is connected to the user's own browser, read pages at human
-  speed with the user present.
-- **No source code, no private APIs.** Do not read or save the app's
-  JavaScript bundles, decompile its binary, or log its network calls to copy
-  endpoints. Public API docs are fine to read.
-- **Check the terms.** Some products' terms forbid using an account to build a
-  competing product. If the user's account is under terms like that, say so
-  and work from public sources only.
-- **Screenshots are reference.** They live in `replica/screens/`, are used to
-  compare layouts, and never go into the clone.
+- Work from public sources and the user's own account or owned copy.
+- Read pages at human speed; no bulk scraping or crawling.
+- Do not copy the app's source, bundles or private APIs; public API docs are
+  fine to read.
+- Screenshots are reference only and stay in `replica/screens/`.
+- For a binary the user owns, follow `binary-analysis.md` instead of the
+  no-decompile line above; it applies to that target only.
 
 ## Step 1: scope
 

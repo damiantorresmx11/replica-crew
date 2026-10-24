@@ -25,8 +25,10 @@ small binaries) when Rust is present, else **Electron** (Node only). Native
 options: .NET/WPF, or Python + Qt. The recon agent studies the app from its
 public site, docs, screenshots and the user's own installed copy (menus,
 windows, flows) - it does **not** decompile the binary unless the user owns it
-and says so in `scope.md`. The deploy agent builds installers (`.msi`/`.dmg`/
-`AppImage`) and signs them with the user's own certificates.
+and says so in `scope.md`; when authorized, `bin_analyze.py` inventories the
+input and picks the decompiler (Ghidra/Rizin for native, ILSpy for .NET,
+blutter for Flutter AOT, GoReSym for Go). The deploy agent builds installers
+(`.msi`/`.dmg`/`AppImage`) and signs them with the user's own certificates.
 
 ## android
 
