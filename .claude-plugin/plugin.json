@@ -1,7 +1,7 @@
 {
   "name": "replica-crew",
   "description": "Clone web pages, web apps, desktop apps, Android apps and games (plus original game mashups) with Claude Code and Codex. Scans your machine read-only to say what it can build, then runs 11 phase subagents. 15 bundled clone/design/UI skills. Clean-room. MIT.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "author": {
     "name": "Damian Torres (DMLABS)",
     "url": "https://dmlabs.mx"
