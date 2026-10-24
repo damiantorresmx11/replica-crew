@@ -1,22 +1,30 @@
 # Replica Crew
 
-**Everything for cloning apps and websites with coding agents, in one repo,
-for Claude Code and Codex.** One command takes an app from "I want my own
-version of X" to a tested, rebranded product on your domain, with 11
-specialist subagents. The same repo bundles 15 more open-source clone,
-design-extraction and UI-to-code skills, and maps 70+ related tools.
+**Everything for cloning software with coding agents, in one repo, for Claude
+Code and Codex.** Web pages, web apps, desktop apps, Android apps, games, and
+original game mashups. One command takes a target from "I want my own version
+of X" to a tested, rebranded product, with 11 specialist subagents. First it
+scans your computer, read-only, and tells you which target types it can build.
+The repo bundles 15 more open-source clone, design-extraction and UI-to-code
+skills, and maps 80+ related tools.
 
-> **ES:** Todo para clonar apps y sitios con agentes de código, en un solo
-> repo, para Claude Code y Codex. 11 subagentes (recon, arquitectura,
-> diseño, reseñas, construcción, backend, pruebas, paridad, marca,
-> lanzamiento, despliegue) más 15 skills de clonado y diseño integradas.
-> Reglas de sala limpia: en modo producto se clonan funciones y flujos,
-> nunca código, marca ni contenido.
+> **ES:** Todo para clonar software con agentes de código, en un solo repo,
+> para Claude Code y Codex: páginas y apps web, apps de escritorio, apps
+> Android, videojuegos y mezclas originales de videojuegos (p. ej. mecánicas
+> de Minecraft con las de GTA V). Primero escanea tu computadora, sin tocar
+> nada, y te dice qué puedes construir. 11 subagentes más 15 skills de
+> clonado integradas. Sala limpia: se clonan funciones y mecánicas, nunca
+> código, arte, marca ni contenido.
 
 ```
 Claude Code:  /replica-crew https://example-app.com
 Codex:        $replica-crew https://example-app.com
 ```
+
+Five target types (`web`, `desktop`, `android`, `game`, `mashup`): see
+[`docs/TARGETS.md`](docs/TARGETS.md). To set up and scan the machine in one
+step, paste the prompt in [`docs/INSTALL_PROMPT.md`](docs/INSTALL_PROMPT.md).
+Check the machine any time: `python skills/replica-capabilities/doctor.py`.
 
 ## Install
 
@@ -49,7 +57,8 @@ Tests: `python -m unittest discover -s tests -v`.
 ## Product mode: how it runs
 
 ```
-Wave 0  scope (you)          app, slice, stack, how far, ownership
+Wave -1 capabilities         read-only machine scan: which targets are buildable
+Wave 0  scope (you)          target type, app, slice, stack, how far, ownership
 Wave 1  recon                screens, flows, data model, feature matrix
 Wave 2  architect | design | entrepreneur     <- in parallel
 Wave 3  build -> backend

@@ -29,6 +29,21 @@ Works in **Claude Code** and **Codex**:
 If no subagents are available, run the `replica-X` skill in the main thread,
 one phase at a time. Same files, same order, just slower.
 
+## Wave -1: capabilities (first, before anything)
+
+The target may be a web page, a web app, a **desktop app**, an **Android app**,
+a **game**, or a **mashup** (an original game blending two games' mechanics).
+Each needs a different toolchain, so check the machine before you promise
+anything. Dispatch `replica-capabilities` (or run its `doctor.py --json`).
+It is read-only and installs nothing.
+
+Show the user the ready/not-ready table. If the target they want is not ready,
+list exactly what to install (the scan names each tool and its site), and
+either wait for them to install it and re-scan, or offer a target that is
+ready. Never install tools yourself; never promise a stack the machine can't
+build, test and run. Write the result to `replica/capabilities.json`; recon and
+architect read it. Full target guide: `docs/TARGETS.md`.
+
 ## Pick the mode first
 
 | mode | when | engine |
@@ -70,14 +85,19 @@ reporting duties below. Waves 1 to 6 are the `product` mode.
 Subagents cannot ask the user anything, so settle it here. Ask, or propose
 and get one yes:
 
-1. The app and platform (web, iOS, Android, desktop) and its URL.
-2. The slice: the core loop users pay for, not "all of it".
+1. The target type (`web`, `desktop`, `android`, `game`, `mashup`) and the
+   app/site/game and its URL or store page. Must be a target the capabilities
+   scan marked ready.
+2. The slice: the core loop (for a game, the core play loop), not "all of it".
+   For a `mashup`, which mechanic comes from which game.
 3. Who the clone is for, and the project folder to build in.
-4. Stack: the project's existing one, or the replica-architect default.
+4. Stack: the project's existing one, or the `docs/TARGETS.md` default for the
+   target type.
 5. How far to go: `plan` (waves 1-2), `build` (to wave 4), or `ship` (all).
 6. Ownership: does the user own the target or hold written authorization
-   (e.g. their own legacy app with lost source)? Default `no`. Only `yes`
-   unlocks `faithful` mode and the binary tools in `docs/ECOSYSTEM.md`.
+   (e.g. their own legacy app with lost source, a game they own and want to
+   mod)? Default `no`. Only `yes` unlocks `faithful` mode, modding an existing
+   game, and the binary tools in `docs/ECOSYSTEM.md`.
 
 Read the clean-room rules in `replica-recon` and say them in one line. If the
 user wants anything they forbid (copying code, logging into someone else's

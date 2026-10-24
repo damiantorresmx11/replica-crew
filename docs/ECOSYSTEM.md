@@ -1,4 +1,4 @@
-# Ecosystem: 70+ open-source tools for AI app cloning (October 2026)
+# Ecosystem: 80+ open-source tools for AI app cloning (October 2026)
 
 Every project below was checked against the GitHub API on 2026-10-23 or
 2026-10-24 (name, license, rounded stars). **Bundled** means its skill ships
@@ -176,3 +176,63 @@ anyone else's app the clean-room rule (no private APIs) applies.
 [hesreallyhim/awesome-claude-code](https://github.com/hesreallyhim/awesome-claude-code),
 [travisvn/awesome-claude-skills](https://github.com/travisvn/awesome-claude-skills),
 [BehiSecc/awesome-claude-skills](https://github.com/BehiSecc/awesome-claude-skills).
+
+## Games, engines and 3D (added 2026-10-24)
+
+MCP servers and skills that drive a game engine from Claude Code or Codex.
+Verified via the GitHub API on 2026-10-24 (license, stars, last push). Agents
+use these only if installed, for a `game` or `mashup` target, and only on the
+user's own project; the clean-room rule still bars using another game's assets
+or decompiled code.
+
+### Godot
+
+| Project | License | Stars | Type |
+| --- | --- | --- | --- |
+| [htdt/godogen](https://github.com/htdt/godogen) | MIT | ~7.2k | autonomous Godot dev for Claude Code and Codex |
+| [Coding-Solo/godot-mcp](https://github.com/Coding-Solo/godot-mcp) | MIT | ~6.3k | MCP server |
+| [hi-godot/godot-ai](https://github.com/hi-godot/godot-ai) | MIT | ~3.2k | MCP + AI tools |
+| [jame581/GodotPrompter](https://github.com/jame581/GodotPrompter) | MIT | ~870 | skills for Godot 4.x |
+
+### Unity
+
+| Project | License | Stars | Type |
+| --- | --- | --- | --- |
+| [CoplayDev/unity-mcp](https://github.com/CoplayDev/unity-mcp) | MIT | ~15k | MCP server (was justinpbarnett/unity-mcp) |
+| [IvanMurzak/Unity-MCP](https://github.com/IvanMurzak/Unity-MCP) | Apache-2.0 | ~4.5k | MCP + skills + CLI |
+| [Besty0728/Unity-Skills](https://github.com/Besty0728/Unity-Skills) | MIT | ~1.9k | skills |
+
+### Unreal Engine
+
+| Project | License | Stars | Type |
+| --- | --- | --- | --- |
+| [EpicGames/unreal-engine-skills-for-claude-code-plugin](https://github.com/EpicGames/unreal-engine-skills-for-claude-code-plugin) | MIT | ~1.6k | skills plugin (verify it is really Epic's org before trusting) |
+| [ChiR24/Unreal_mcp](https://github.com/ChiR24/Unreal_mcp) | MIT | ~970 | MCP server + C++ plugin |
+| [quodsoler/unreal-engine-skills](https://github.com/quodsoler/unreal-engine-skills) | MIT | ~400 | 27 C++ skills |
+
+### Blender and Roblox
+
+| Project | License | Stars | Type |
+| --- | --- | --- | --- |
+| [ahujasid/blender-mcp](https://github.com/ahujasid/blender-mcp) | MIT | ~32k | MCP server (now ahujasid/mcp-for-blender) |
+| [EL4CTEO/blender-skills](https://github.com/EL4CTEO/blender-skills) | MIT | ~460 | Blender skills, Claude + Codex |
+| [boshyxd/robloxstudio-mcp](https://github.com/boshyxd/robloxstudio-mcp) | MIT | ~500 | Roblox Studio MCP |
+| [Chrrxs/robloxstudio-mcp](https://github.com/Chrrxs/robloxstudio-mcp) | MIT | ~330 | Roblox Studio MCP (active) |
+
+### Multi-engine collections
+
+| Project | License | Stars | Type |
+| --- | --- | --- | --- |
+| [Donchitos/Claude-Code-Game-Studios](https://github.com/Donchitos/Claude-Code-Game-Studios) | MIT | ~27k | 49 agents + 72 skills |
+| [gamedev-skills/awesome-gamedev-agent-skills](https://github.com/gamedev-skills/awesome-gamedev-agent-skills) | Apache-2.0 | ~3.6k | 74 skills: Godot, Unity, Unreal, Phaser |
+
+### Modding frameworks (owned games only)
+
+For a game the user owns and records in `scope.md`. Not agent tools by
+themselves; the agent writes mods against them.
+
+| Project | License | Stars | Target |
+| --- | --- | --- | --- |
+| [UE4SS-RE/RE-UE4SS](https://github.com/UE4SS-RE/RE-UE4SS) | MIT | ~3.0k | Unreal games |
+| [BepInEx/BepInEx](https://github.com/BepInEx/BepInEx) | LGPL-2.1 | ~8.9k | Unity / Mono games |
+| [LaurieWired/GhidraMCP](https://github.com/LaurieWired/GhidraMCP) | Apache-2.0 | ~11.5k | native binaries (free Ghidra) |

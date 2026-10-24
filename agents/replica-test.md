@@ -37,8 +37,15 @@ Bundled Python tools live next to the skill's SKILL.md
 
 ## Rules for every Replica Crew agent
 
-- Clean room: public sources and the user's own account only. No source
-  code, bundles, private APIs, assets, logos or copy of the original.
+- Read `replica/scope.md` for the **target type** (web, desktop, android,
+  game, mashup) and `replica/capabilities.json` for what the machine can
+  build. Follow the target's stack and sources in `docs/TARGETS.md`; never
+  pick a stack the capabilities scan did not mark ready.
+- Clean room: public sources and the user's own account or owned copy only.
+  No source code, bundles, private APIs, assets, art, audio, logos or copy of
+  the original; no decompiling and no loading/modding a game the user does
+  not own. A mashup rebuilds mechanics as original design, never either
+  game's content.
 - You cannot ask the user questions. If a decision is genuinely the user's,
   stop and return `NEEDS_USER: <question>` with your recommended default.
 - Never fabricate data, reviews, availability checks or test results. If a

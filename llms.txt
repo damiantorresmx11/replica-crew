@@ -1,6 +1,6 @@
 # Replica Crew
 
-> One repo for cloning apps and websites with Claude Code and Codex: an orchestrator, 11 specialist subagents (Claude .md and Codex .toml) that clone an app's features end to end, 15 bundled clone/design/UI-to-code skills, and a map of 70+ tools (recon, architect, design, entrepreneur, build, backend, test, diff, brand, launch, deploy). Clean-room: features and flows, never code, brand or content. MIT. Built on the Replica skill pack by Jake Schincariol.
+> One repo for cloning apps and websites with Claude Code and Codex: an orchestrator, 11 specialist subagents (Claude .md and Codex .toml) that clone an app's features end to end, 15 bundled clone/design/UI-to-code skills, and a map of 80+ tools (recon, architect, design, entrepreneur, build, backend, test, diff, brand, launch, deploy). Clean-room: features and flows, never code, brand or content. MIT. Built on the Replica skill pack by Jake Schincariol.
 
 Install: `/plugin marketplace add damiantorresmx11/replica-crew` then `/plugin install replica-crew@replica-crew`. Run: `/replica-crew <app url>` (Claude) or `$replica-crew <app url>` (Codex). Install for both: `python scripts/install.py`.
 
@@ -9,7 +9,7 @@ Install: `/plugin marketplace add damiantorresmx11/replica-crew` then `/plugin i
 - [README](https://github.com/damiantorresmx11/replica-crew/blob/main/README.md): overview, waves, install
 - [AGENTS.md](https://github.com/damiantorresmx11/replica-crew/blob/main/AGENTS.md): use with Codex, Cursor, Gemini CLI
 - [Orchestrator](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-crew/SKILL.md): waves, parallel phases, quality loop
-- [Ecosystem](https://github.com/damiantorresmx11/replica-crew/blob/main/docs/ECOSYSTEM.md): 70+ open-source AI app-cloning tools by phase
+- [Ecosystem](https://github.com/damiantorresmx11/replica-crew/blob/main/docs/ECOSYSTEM.md): 80+ open-source AI app-cloning tools by phase
 
 ## Skills
 
@@ -25,3 +25,6 @@ Install: `/plugin marketplace add damiantorresmx11/replica-crew` then `/plugin i
 - [replica-launch](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-launch/SKILL.md): landing, pricing, store listing
 - [replica-deploy](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-deploy/SKILL.md): preflight, DNS, production
 - [Third-party notices](https://github.com/damiantorresmx11/replica-crew/blob/main/THIRD_PARTY_NOTICES.md): 15 bundled skills (clone-team, clone-website, web-clone, clone-study, design-mirror, Stitch skills, video-to-ui, ui-image-to-code, restyle, app-store-screenshots)
+- [Targets](https://github.com/damiantorresmx11/replica-crew/blob/main/docs/TARGETS.md): web, desktop, android, game, mashup (game-mechanic blends) and how each flows through the pipeline
+- [Install + scan prompt](https://github.com/damiantorresmx11/replica-crew/blob/main/docs/INSTALL_PROMPT.md): paste-in English prompt that installs the toolkit and scans the machine read-only
+- [replica-capabilities](https://github.com/damiantorresmx11/replica-crew/blob/main/skills/replica-capabilities/SKILL.md): read-only machine scan (doctor.py) of toolchains and buildable targets
