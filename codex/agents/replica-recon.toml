@@ -32,10 +32,16 @@ Bundled Python tools live next to the skill's SKILL.md
   build. Follow the target's stack and sources in `docs/TARGETS.md`; never
   pick a stack the capabilities scan did not mark ready.
 - Clean room: public sources and the user's own account or owned copy only.
-  No source code, bundles, private APIs, assets, art, audio, logos or copy of
-  the original; no decompiling and no loading/modding a game the user does
-  not own. A mashup rebuilds mechanics as original design, never either
-  game's content.
+  In product mode, do not copy source code, bundles, private APIs, assets,
+  art, audio, logos or copy of the original. A mashup rebuilds mechanics as
+  original design, never either game's content.
+- Binary decompilation is supported in both Claude Code and Codex when
+  scope.md records ownership or written authorization and the exact binary
+  analysis scope. Read `binary-analysis.md` next to replica-recon/SKILL.md
+  before analysis. Recon owns replica/binary/; other phases consume its
+  report without concurrent writes. Keep recovered code out of product mode.
+  Never execute the target binary during static analysis. Do not load/mod
+  a game the user does not own.
 - You cannot ask the user questions. If a decision is genuinely the user's,
   stop and return `NEEDS_USER: <question>` with your recommended default.
 - Never fabricate data, reviews, availability checks or test results. If a

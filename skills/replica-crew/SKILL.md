@@ -108,6 +108,19 @@ Create `replica/` and `replica/crew-log.md` with a header line. Write the
 answers to `replica/scope.md`. Every dispatch prompt includes the path to
 `scope.md` and the project root.
 
+## Optional binary analysis (both hosts)
+
+If the input is a binary or the user requests decompilation, record the local
+input path, ownership/authorization, allowed purpose, and output scope in
+`replica/scope.md`. Reuse authorization already given in the conversation.
+Dispatch `replica-recon` with the `binary-analysis.md` playbook next to its
+SKILL.md. The binary workflow is independent of build-target readiness:
+missing Flutter or Node must not block static analysis with an available
+decompiler. Do not hand binary-only faithful recovery to website skills.
+For analysis-only work, stop after recon returns `replica/binary/report.md`.
+For authorized recovery, pass that report to architect/build; product mode
+continues using only functional observations, without recovered code.
+
 ## Wave 1: recon
 
 Dispatch `replica-recon`. When it returns, show the user its five-line
