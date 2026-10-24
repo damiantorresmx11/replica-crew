@@ -18,6 +18,11 @@ import sys
 
 # tool -> (probe args, homepage for the "how to get it" hint)
 TOOLS = {
+    "jadx": (["--version"], "github.com/skylot/jadx"),
+    "apktool": (["--version"], "apktool.org"),
+    "ilspycmd": (["--version"], "github.com/icsharpcode/ILSpy"),
+    "rizin": (["-v"], "rizin.re"),
+    "llvm-objdump": (["--version"], "llvm.org"),
     "node": (["--version"], "nodejs.org"),
     "npm": (["--version"], "nodejs.org"),
     "python3": (["--version"], "python.org"),

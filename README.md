@@ -26,6 +26,25 @@ Five target types (`web`, `desktop`, `android`, `game`, `mashup`): see
 step, paste the prompt in [`docs/INSTALL_PROMPT.md`](docs/INSTALL_PROMPT.md).
 Check the machine any time: `python skills/replica-capabilities/doctor.py`.
 
+## Binary decompilation (Claude Code and Codex)
+
+Both hosts support authorized static analysis of APK/DEX, .NET assemblies,
+Java bytecode and native PE/ELF/Mach-O binaries through `replica-recon`.
+Use an installed decompiler (JADX, ILSpy, CFR, Ghidra) or a connected MCP.
+The agents inventory inputs, record hashes, run the appropriate tool and
+write `replica/binary/report.md` with evidence and recovery limitations.
+Record ownership/authorization and analysis scope in `replica/scope.md`.
+Recovered code stays out of product-mode clones.
+
+```text
+Claude Code: /replica-crew Analyze my local binary <path>; I own it. Static decompilation only.
+Codex:       $replica-crew Analyze my local binary <path>; I own it. Static decompilation only.
+```
+
+See the shared [binary workflow](skills/replica-recon/binary-analysis.md).
+Build tools are optional for analysis-only work; decompilers are not bundled
+or installed automatically.
+
 ## Install
 
 ```bash

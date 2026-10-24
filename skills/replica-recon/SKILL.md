@@ -23,6 +23,15 @@ replica/features.csv    the feature matrix (template: features.csv in this folde
 replica/screens/        reference screenshots of the original. Never shipped.
 ```
 
+## Authorized binary analysis (Claude Code and Codex)
+
+For an APK, DEX, JAR, .NET assembly or native executable/library, read
+[binary-analysis.md](binary-analysis.md) first. When scope.md records ownership
+or written authorization and the requested analysis, that workflow permits
+static decompilation and supersedes the clean-room source restriction below
+only for the authorized target. Without that scope, continue public recon.
+Recovered code never enters a product-mode clone.
+
 ## The rules, before anything else
 
 This skill rebuilds **functionality and UX patterns**, clean-room style. It
